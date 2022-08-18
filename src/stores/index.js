@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import {loadUsers} from '@/services/users'
 
 const createPersistPlugin = () => {
     return (store) => {
@@ -13,7 +14,11 @@ const store = createStore({
       return {
         count: JSON.parse(localStorage.getItem(`state`)) || 0,
         userData: {},
-        news: []
+        users: [],
+        // usersData: {
+        //   isLoading: false,
+        //   data: []
+        // }
       }
     },
     mutations: {
@@ -22,9 +27,17 @@ const store = createStore({
       },
       setValue (state, value) {
         state.count = value
+      },
+      setUsers (state, value){
+        state.users = value
       }
     },
     actions: {
+        loadUsers(store){
+          loadUsers().then(response => {
+            store.commit('setUsers', response.data)
+          })
+        },
         // A->M
         asyncIncrement(store){
             store.commit('increment') // +1

@@ -18,8 +18,8 @@ const countValue = computed(() => store.state.count)
 
 <template>
   <header>
-    {{countValue}}
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <!-- {{countValue}}
+    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" /> -->
     <div class="wrapper">
       <!-- v-on === @ -->
       <!-- <HelloWorld @countChange="callback"
@@ -38,13 +38,29 @@ const countValue = computed(() => store.state.count)
     </div>
   </header>
 
-  <RouterView />
+
+  <router-view v-slot="{ Component }">
+    <transition name="otus"> 
+      <component :is="Component" />
+    </transition>
+  </router-view>
+
 </template>
 
 <style scoped>
 header {
   line-height: 1.5;
   max-height: 100vh;
+}
+
+.otus-enter-active,
+.otus-leave-active {
+  transition: opacity 2s ease;
+}
+
+.otus-enter-from,
+.otus-leave-to {
+  opacity: 0;
 }
 
 .logo {

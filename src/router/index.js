@@ -24,6 +24,12 @@ const router = createRouter({
       component: UserProfile
     },
     {
+      path: '/user-details/:id',
+      name: 'userdetails',
+      props: true,
+      component: () => import('../views/UserDetails.vue')
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
